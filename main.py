@@ -9,6 +9,15 @@ socketio = SocketIO(app)
 
 @app.route("/", methods=["POST", "GET"])
 def home():
+    if request.method == "POST":
+        name = request.form.get("name")
+        code = request.form.get("code")
+        join = request.form.get("join", False)
+        create = request.form.get("create", False)
+
+        if not name:
+            return render_template("home.html", error="Please enter a name.", code=code, name=name)
+
     return render_template("home.html")
 
 if __name__ == "__main__":
